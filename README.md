@@ -1,3 +1,9 @@
-# java_mvc
+# java MVC Project
 
-test
+Project with:
+Spring Security
+Redisson/Jedis
+ElasticSearch
+Kafka
+WebSockets
+FlyWay
