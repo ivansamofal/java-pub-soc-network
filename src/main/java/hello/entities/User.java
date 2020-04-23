@@ -30,6 +30,12 @@ public class User implements Serializable, UserDetails {
     @Length(max = 32)
     private String authKey;
 
+    @Column(name = "enabled")
+    private Boolean status;
+
+    @Column(name = "password")
+    private String password;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -38,24 +44,24 @@ public class User implements Serializable, UserDetails {
         return getRoles();
     }
 
-    @Override
-    public String getPassword() {
-        return "password";
-    }
+//    @Override
+//    public String getPassword() {
+//        return "password";
+//    }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return this.getStatus();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return this.getStatus();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return this.getStatus();
     }
 
     @Override
