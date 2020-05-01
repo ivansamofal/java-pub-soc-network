@@ -3,6 +3,7 @@ package hello.controllers;
 import hello.entities.Row;
 import hello.services.KafkaService;
 import hello.services.RowService;
+import hello.services.TestService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,10 +21,12 @@ import java.util.List;
 class HelloController {
     final private RowService rowService;
     final private KafkaService kafkaService;
+    final private TestService testService;
 
-    public HelloController(RowService rowService, KafkaService kafkaService) {
+    public HelloController(RowService rowService, KafkaService kafkaService, TestService testService) {
         this.rowService = rowService;
         this.kafkaService = kafkaService;
+        this.testService = testService;
     }
 
     @PreAuthorize("hasAuthority('USER')")
@@ -156,5 +159,12 @@ class HelloController {
     @GetMapping("/rows")
     public List<Row> all() {
         return rowService.findAll();
+    }
+
+    @GetMapping("/test/{code}")
+    public String test(@PathVariable String code) throws Exception {
+
+        testService.doSomething(code);
+        return "test";
     }
 }

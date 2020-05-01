@@ -1,5 +1,7 @@
 package hello.services;
 
+import hello.annotations.PostProxy;
+import hello.annotations.Profiling;
 import hello.configuration.SpringRedisConfig;
 import hello.dtos.RowDto;
 import hello.entities.Row;
@@ -35,6 +37,7 @@ public class RowService {
         this.repository = rowRepository;
     }
 
+    @Profiling
     public void execute() {
         try {
             JedisPool _pool = JedisPoolFactory.create();
@@ -71,6 +74,9 @@ public class RowService {
 
                 System.out.println(std);
                 System.out.println("TRY TO GET FROM REDIS!");
+
+                RowDto rowDto = new RowDto();
+                System.out.println(rowDto.getTest());
 
             } finally {
                 ctx.close();
@@ -109,6 +115,10 @@ public class RowService {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+    @PostProxy
+    public void test() {
+        System.out.println("TEST MY PROXY METHOD!!!");
     }
 
     public List<Row> findAll() {

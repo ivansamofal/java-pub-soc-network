@@ -1,5 +1,6 @@
 package hello.entities;
 
+import hello.annotations.InjectRandomInt;
 import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
