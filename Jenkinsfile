@@ -12,7 +12,7 @@ pipeline {
             }
             sh "mkdir ${DATETIME_TAG}"
             // Run Maven on a Unix agent.
-            sh "cd ${DATETIME_TAG} && git clone --single-branch -b master https://gitlab.com/ioansamofal/java-spring/ . && mkdir testsfg"
+            sh "cd ${DATETIME_TAG} && git clone --single-branch -b JVMC-2 https://gitlab.com/ioansamofal/java-spring/ . && mkdir testsfg"
 
             sh "echo 'BUILD_NUMBER' :: $BUILD_NUMBER"
 
