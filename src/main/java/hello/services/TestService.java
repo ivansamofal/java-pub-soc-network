@@ -1,5 +1,6 @@
 package hello.services;
 
+import hello.CsvParser;
 import hello.concurrency.*;
 import hello.concurrency.atomic.AtomicIntegerExample;
 import hello.concurrency.atomic.ReadWriteLockExample;
@@ -91,6 +92,24 @@ public class TestService {
             case "ReentrantLockMethodsExample":
                 ReentrantLockMethodsExample.main(args);
                 break;
+
+            case "ForkJoinTaskExample":
+                ForkJoinTaskExample.main(args);
+                break;
+            case "PhaserExample":
+                PhaserExample.main(args);
+                break;
         }
+    }
+
+    public void parseCsvFile(Integer number) {
+
+        try {
+            CsvParser.parseCsv("/tmp/hw.csv", number);
+        } catch (Exception e) {
+            System.out.println("ERROR " + e.getMessage());
+        }
+
+
     }
 }

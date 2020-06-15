@@ -1,0 +1,2 @@
+# connect to consumer kafka:
+kafka-console-consumer --bootstrap-server kafka1:9092 --topic user --from-beginning

@@ -1,6 +1,7 @@
 package hello.controllers;
 
 import hello.entities.Row;
+import hello.services.CsvService;
 import hello.services.KafkaService;
 import hello.services.RowService;
 import hello.services.TestService;
@@ -16,17 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 class HelloController {
     final private RowService rowService;
     final private KafkaService kafkaService;
     final private TestService testService;
+    final private CsvService csvService;
 
-    public HelloController(RowService rowService, KafkaService kafkaService, TestService testService) {
+    public HelloController(RowService rowService, KafkaService kafkaService, TestService testService, CsvService csvService) {
         this.rowService = rowService;
         this.kafkaService = kafkaService;
         this.testService = testService;
+        this.csvService = csvService;
     }
 
     @PreAuthorize("hasAuthority('USER')")
@@ -149,6 +153,13 @@ class HelloController {
         return "test";
     }
 
+    @GetMapping("/producer")
+    public String producer() {
+        kafkaService.testProducer();
+
+        return "test";
+    }
+
     @GetMapping("/stream")
     public String stream() {
         kafkaService.testStream();
@@ -161,10 +172,22 @@ class HelloController {
         return rowService.findAll();
     }
 
+    //concurrency examples
     @GetMapping("/test/{code}")
     public String test(@PathVariable String code) throws Exception {
 
         testService.doSomething(code);
         return "test";
+    }
+
+    @GetMapping("/parse/{number}")
+    public String parse(@PathVariable Optional<Integer> number) throws Exception {
+
+
+//        testService.parseCsvFile(number);
+
+        csvService.parseCsv("/tmp/hw.csv",number.orElse(2));
+
+        return number.orElse(2).toString();
     }
 }

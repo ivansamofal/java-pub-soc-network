@@ -124,4 +124,8 @@ public class RowService {
     public List<Row> findAll() {
         return (List<Row>) repository.findAll();
     }
+
+    public List<Row> saveAll(List<Row> rows) {
+        return (List<Row>) repository.saveAll(rows);
+    }
 }

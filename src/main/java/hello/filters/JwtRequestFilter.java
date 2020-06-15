@@ -1,5 +1,6 @@
 package hello.filters;
 
+import hello.services.AppUserDetailsService;
 import hello.services.UserService;
 import hello.utils.auth.JwtUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 
-@Component
+//@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private JwtUtils jwtUtils;
-    private UserService userService;
+    private AppUserDetailsService userService;
 
-    public JwtRequestFilter(JwtUtils jwtUtils, UserService userService) {
+    public JwtRequestFilter(JwtUtils jwtUtils, AppUserDetailsService userService) {
         this.jwtUtils = jwtUtils;
         this.userService = userService;
     }

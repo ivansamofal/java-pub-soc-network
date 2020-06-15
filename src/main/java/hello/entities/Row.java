@@ -20,4 +20,10 @@ public class Row implements Serializable {
 
     @Column(name = "created_at")
     private LocalDateTime created_at;
+
+    @Column(name = "height")
+    private String height;
+
+    @Column(name = "weight")
+    private String weight;
 }

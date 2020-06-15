@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 @Entity(name = "users")
 //@Table(name = "users")
-public class User implements Serializable, UserDetails {
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="users_id_seq")
     @SequenceGenerator(name="users_id_seq", sequenceName="users_id_seq", allocationSize=1)
@@ -38,34 +38,4 @@ public class User implements Serializable, UserDetails {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
-
-//    @Override
-//    public String getPassword() {
-//        return "password";
-//    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return this.getStatus();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.getStatus();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.getStatus();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

@@ -1,6 +1,7 @@
 package hello.configuration.security;
 
 import hello.filters.JwtRequestFilter;
+import hello.services.AppUserDetailsService;
 import hello.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,14 +34,14 @@ public class SpringWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 //        this.authProvider = authProvider;
 //    }
 
-        @Autowired
-    private UserService userService;
+    @Autowired
+    private AppUserDetailsService userService;
 
     @Autowired
     private DataSource dataSource;
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+//    @Autowired
+//    private JwtRequestFilter jwtRequestFilter;
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -102,7 +103,7 @@ public class SpringWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
                 .formLogin().defaultSuccessUrl("/hello/test");
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override

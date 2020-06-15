@@ -2,6 +2,7 @@ package hello.controllers;
 
 import hello.dtos.AuthRequestDto;
 import hello.dtos.AuthResponseDto;
+import hello.services.AppUserDetailsService;
 import hello.services.UserService;
 import hello.utils.auth.JwtUtils;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
 
     private AuthenticationManager authenticationManager;
-    private UserService userService;
+    private AppUserDetailsService userService;
     private JwtUtils jwtUtils;
 
-    public ApiController(AuthenticationManager authenticationManager, UserService userService, JwtUtils jwtUtils) {
+    public ApiController(AuthenticationManager authenticationManager, AppUserDetailsService userService, JwtUtils jwtUtils) {
         this.authenticationManager = authenticationManager;
         this.userService = userService;
         this.jwtUtils = jwtUtils;
