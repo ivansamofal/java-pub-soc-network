@@ -1,13 +1,22 @@
+#!groovy
+properties([disableConcurrentBuilds()])
+
+
 pipeline {
-   agent any
+   agent {
+       label 'master'
+   }
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestemps()
+    }
 
    stages {
       stage('Build') {
 
          steps {
           script {
-              DATE_TAG = java.time.LocalDate.now()
-              DATETIME_TAG = java.time.LocalDateTime.now()
               DATETIME_TAG = java.util.Calendar.getInstance().getTimeInMillis();
             }
             sh "mkdir ${DATETIME_TAG}"
@@ -26,6 +35,7 @@ pipeline {
             sh "echo 'GIT_COMMIT' :: ${env.GIT_COMMIT}"
             sh "echo 'GIT_BRANCH' :: ${env.GIT_BRANCH}"
             sh "echo 'NODE_NAME' :: ${env.NODE_NAME}"
+            sh "touch sometestfile.txt"
             sh "touch sometestfile.txt"
          }
       }
