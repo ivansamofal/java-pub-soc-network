@@ -26,6 +26,7 @@ pipeline {
             sh "echo 'GIT_COMMIT' :: ${env.GIT_COMMIT}"
             sh "echo 'GIT_BRANCH' :: ${env.GIT_BRANCH}"
             sh "echo 'NODE_NAME' :: ${env.NODE_NAME}"
+            sh "touch sometestfile.txt"
          }
       }
    }
