@@ -1,11 +1,11 @@
 package hello.repositories;
 
-import hello.entities.Message;
-import hello.entities.User;
+import hello.entities.ContractorCheck;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
-    User findByUsername(String username);
+public interface ContractorCheckRepository extends CrudRepository<ContractorCheck, Integer> {
+    List<ContractorCheck> findAllByRegNumber(String regNumber);
 }

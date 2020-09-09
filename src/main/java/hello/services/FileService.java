@@ -11,6 +11,11 @@ import java.time.ZoneOffset;
 import java.util.Calendar;
 
 public class FileService {
+    static {
+        System.out.println("!!! Static initializer");
+        String test = "test";
+    }
+
     public void copyFile() {
         File file = new File("/project/deploy.sh");
         Path path = file.toPath();

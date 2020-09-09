@@ -1,202 +1,32 @@
 package hello.controllers;
 
+import hello.dtos.contractor.dineka.DinekaCompanyDto;
 import hello.dtos.contractor.dineka.DinekaResponseDto;
-import hello.entities.Row;
 import hello.services.*;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
-@RestController
-class HelloController {
-    final private RowService rowService;
-    final private KafkaService kafkaService;
-    final private TestService testService;
-    final private CsvService csvService;
+@Controller
+class SomeController {
     final private ContractorService contractorService;
 
-    public HelloController(RowService rowService, KafkaService kafkaService, TestService testService, CsvService csvService, ContractorService contractorService) {
-        this.rowService = rowService;
-        this.kafkaService = kafkaService;
-        this.testService = testService;
-        this.csvService = csvService;
+    public SomeController(ContractorService contractorService) {
         this.contractorService = contractorService;
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    @RequestMapping("/dineka/{regNumber}")
-    String dineka(@PathVariable String regNumber) throws Exception {
+    @RequestMapping(value = "/dineka2/{regNumber}", method = RequestMethod.GET)
+    public String printHello(ModelMap model, @PathVariable String regNumber) throws Exception {
         DinekaResponseDto responseDto = contractorService.getDinekaData(regNumber);
-        System.out.println(responseDto.getStatus());
+        List<DinekaCompanyDto> companies =  responseDto.getData().getCompanies();
+        model.addAttribute("message", "Hello Spring MVC Framework!");
+        model.addAttribute("dto", responseDto);
+        model.addAttribute("companies", companies);
 
-        return "Status: " + responseDto.getStatus() + " Total Count!: " + responseDto.getData().getTotal_count();
-    }
-
-    @PreAuthorize("hasAuthority('USER')")
-    @RequestMapping("/hello/{name}")
-    String hello(@PathVariable String name) throws Exception {
-//        System.out.println("some");
-//        Thread someThread = new Thread(new Test());
-//        Runnable task = () -> {
-//            String threadName = Thread.currentThread().getName();
-//            System.out.println("Hello " + threadName);
-//        };
-//
-//        task.run();
-//
-//        Thread thread = new Thread(task);
-//        thread.start();
-//
-//        System.out.println("Done!");
-//
-//        someThread.start();
-
-//        ExecutorService executor = Executors.newSingleThreadExecutor();
-//        executor.submit(() -> {
-//            String threadName = Thread.currentThread().getName();
-//            System.out.println("Hello " + threadName);
-//        });
-//
-//        try {
-//            System.out.println("attempt to shutdown executor");
-//            executor.shutdown();
-//            executor.awaitTermination(5, TimeUnit.SECONDS);
-//        }
-//        catch (InterruptedException e) {
-//            System.err.println("tasks interrupted");
-//        }
-//        finally {
-//            if (!executor.isTerminated()) {
-//                System.err.println("cancel non-finished tasks");
-//            }
-//            executor.shutdownNow();
-//            System.out.println("shutdown finished");
-//        }
-
-
-//        Callable task = () -> {
-//            try {
-//                TimeUnit.SECONDS.sleep(1);
-//                return 123;
-//            }
-//            catch (InterruptedException e) {
-//                throw new IllegalStateException("task interrupted", e);
-//            }
-//        };
-//
-//        ExecutorService executor = Executors.newFixedThreadPool(1);
-//        Future<Integer> future = executor.submit(task);
-//
-//        System.out.println("future done? " + future.isDone());
-//
-//        Integer result = future.get();
-//
-//        System.out.println("future done? " + future.isDone());
-//        System.out.print("result: " + result);
-
-//        InvokeAllExecutor invokeAllExecutor = new InvokeAllExecutor();
-//        invokeAllExecutor.execute();
-//        InvokeAnyExecutor invokeAnyExecutor = new InvokeAnyExecutor();
-//        invokeAnyExecutor.execute();
-
-//        ScheduledExecutor scheduledExecutor = new ScheduledExecutor();
-//        scheduledExecutor.execute();
-//        scheduledExecutor.fixedExecute();
-
-//        SomeChild some = new SomeChild();
-//        some.some();
-
-//        LockExample lockExample = new LockExample();
-////        lockExample.execute();
-//        lockExample.executeReadWriteLock();
-//
-//        SemaphoneExample semaphoneExample = new SemaphoneExample();
-//        semaphoneExample.execute();
-
-
-//        MultiTestt _test = new MultiTestt();
-//        _test.execute();
-
-//          CsvParser.parseProductCsv("/tmp/test.csv");
-        rowService.execute();
-
-        kafkaService.testProducer();
-
-//        FileReaderExample _example = new FileReaderExample();
-//        _example.execute();
-
-//        FileStreamExample fileStreamExample = new FileStreamExample();
-//        fileStreamExample.execute();
-
-//        NumberPrint _print = new NumberPrint();
-//        _print.execute();
-
-        SecurityContext context = SecurityContextHolder.getContext();
-        Authentication authentication = context.getAuthentication();
-        String username = authentication.getName();
-        System.out.println("CURRENT USERNAME IS: " + username);
-        Object principal = authentication.getPrincipal();
-        System.out.println(principal);
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        authorities.forEach(_i -> {
-            System.out.println(_i);
-        });
-
-        return "Hi223 " + name + " !";
-    }
-
-    @GetMapping("/consumer")
-    public String consumer() {
-        kafkaService.testConsumer();
-
-        return "test";
-    }
-
-    @GetMapping("/producer")
-    public String producer() {
-        kafkaService.testProducer();
-
-        return "test";
-    }
-
-    @GetMapping("/stream")
-    public String stream() {
-        kafkaService.testStream();
-
-        return "stream";
-    }
-
-    @GetMapping("/rows")
-    public List<Row> all() {
-        return rowService.findAll();
-    }
-
-    //concurrency examples
-    @GetMapping("/test/{code}")
-    public String test(@PathVariable String code) throws Exception {
-
-        testService.doSomething(code);
-        return "test";
-    }
-
-    @GetMapping("/parse/{number}")
-    public String parse(@PathVariable Optional<Integer> number) throws Exception {
-
-
-//        testService.parseCsvFile(number);
-
-        csvService.parseCsv("/tmp/hw.csv",number.orElse(2));
-
-        return number.orElse(2).toString();
+        return "main";
     }
 }

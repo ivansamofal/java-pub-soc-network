@@ -1,10 +1,8 @@
 package hello.controllers;
 
+import hello.dtos.contractor.dineka.DinekaResponseDto;
 import hello.entities.Row;
-import hello.services.CsvService;
-import hello.services.KafkaService;
-import hello.services.RowService;
-import hello.services.TestService;
+import hello.services.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,12 +23,23 @@ class HelloController {
     final private KafkaService kafkaService;
     final private TestService testService;
     final private CsvService csvService;
+    final private ContractorService contractorService;
 
-    public HelloController(RowService rowService, KafkaService kafkaService, TestService testService, CsvService csvService) {
+    public HelloController(RowService rowService, KafkaService kafkaService, TestService testService, CsvService csvService, ContractorService contractorService) {
         this.rowService = rowService;
         this.kafkaService = kafkaService;
         this.testService = testService;
         this.csvService = csvService;
+        this.contractorService = contractorService;
+    }
+
+    @PreAuthorize("hasAuthority('USER')")
+    @RequestMapping("/dineka/{regNumber}")
+    String dineka(@PathVariable String regNumber) throws Exception {
+        DinekaResponseDto responseDto = contractorService.getDinekaData(regNumber);
+        System.out.println(responseDto.getStatus());
+
+        return "Status: " + responseDto.getStatus() + " Total Count!: " + responseDto.getData().getTotal_count();
     }
 
     @PreAuthorize("hasAuthority('USER')")
