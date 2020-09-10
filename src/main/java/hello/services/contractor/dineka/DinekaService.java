@@ -53,7 +53,7 @@ public class DinekaService implements ContractorServiceInterface {
     }
 
     @Override
-    public AbstractResponseDto getInfo(String regNumber) throws Exception {
+    public DinekaResponseDto getInfo(String regNumber) throws Exception {
         try {
             List<ContractorCheck> checkList = this.contractorCheckRepository.findAllByRegNumber(regNumber);
 

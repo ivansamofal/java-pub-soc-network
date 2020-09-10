@@ -1,7 +1,10 @@
 package hello.services;
 
+import org.springframework.stereotype.Service;
+
 import java.util.stream.Stream;
 
+@Service
 public class StreamService {
 
     public void findUniqueSquares() {
@@ -10,5 +13,11 @@ public class StreamService {
                 .map(s -> s * s)
                 .distinct()
                 .forEach(System.out::println);
+    }
+
+    public void charsStream() {
+        String str = "some new my string";
+        str = str.chars().sorted().toString();
+        System.out.println(str);
     }
 }

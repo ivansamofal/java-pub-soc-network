@@ -41,6 +41,12 @@
     <scope>provided</scope>
   </dependency>
   <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>servlet-api</artifactId>
+    <version>2.5</version>
+  </dependency>
+
+  <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-test</artifactId>
     <version>${spring-boot.version}</version>
@@ -170,6 +176,12 @@
     <version>${spring-framework.version}</version>
   </dependency>
 
+  <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+  <dependency>
+    <groupId>org.apache.httpcomponents</groupId>
+    <artifactId>httpclient</artifactId>
+    <version>4.5.12</version>
+  </dependency>
 
   <!-- Transactions Spring-->
   <dependency>
@@ -245,7 +257,11 @@
     <artifactId>modelmapper</artifactId>
     <version>2.3.2</version>
   </dependency>
-
+  <dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+  </dependency>
 
 <!--  <dependency>-->
 <!--    <groupId>org.springframework.kafka</groupId>-->
@@ -281,6 +297,13 @@
     <artifactId>spring-security-config</artifactId>
     <version>${spring-framework.version}</version>
   </dependency>
+
+  <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+<!--  <dependency>-->
+<!--    <groupId>org.apache.httpcomponents</groupId>-->
+<!--    <artifactId>httpclient</artifactId>-->
+<!--    <version>4.5.12</version>-->
+<!--  </dependency>-->
 
 
   <!-- Logger -->
@@ -322,6 +345,21 @@
         <url>jdbc:postgresql://postgresql:5432/test</url>
         <baseDir>migrations</baseDir>
       </configuration>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-dependency-plugin</artifactId>
+      <version>3.1.1</version>
+      <executions>
+        <execution>
+          <id>download-sources</id>
+          <goals>
+            <goal>sources</goal>
+          </goals>
+          <configuration>
+          </configuration>
+        </execution>
+      </executions>
     </plugin>
   </plugins>
 </build>

@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-class SomeController {
+class ContractorController {
     final private ContractorService contractorService;
 
-    public SomeController(ContractorService contractorService) {
+    public ContractorController(ContractorService contractorService) {
         this.contractorService = contractorService;
     }
 
