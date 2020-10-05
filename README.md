@@ -1,9 +1,11 @@
-# java MVC Project
+# java SOCIAL NETWORK example
 
-Project with:
-Spring Security
-Redisson/Jedis
-ElasticSearch
-Kafka
-WebSockets
-FlyWay
+```
+List of posibilities:
+
+user list 
+user profile page
+adding/removing likes
+adding/removing friends
+register
+```
