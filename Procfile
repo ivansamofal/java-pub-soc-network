@@ -1,1 +1,1 @@
-web: java -war target/socialnetwork.war
+web: ls -l
