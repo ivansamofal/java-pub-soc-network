@@ -1,1 +1,1 @@
-web: mvn clean package -e wildfly:deploy
+web: mvn clean heroku:deploy-war
