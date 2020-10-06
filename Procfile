@@ -1,1 +1,1 @@
-web: ls -l && pwd
+web: ls -l target
