@@ -1,1 +1,1 @@
-web: java -jar project/target/socialnetwork.war
+web: ls -l && pwd
