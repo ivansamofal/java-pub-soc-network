@@ -1,1 +1,1 @@
-web: mvn clean heroku:deploy-war
+web: java -jar project/target/socialnetwork.war
