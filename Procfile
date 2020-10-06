@@ -1,1 +1,1 @@
-web: echo 200
+web: java -war target/socialnetwork.war
