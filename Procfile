@@ -1,1 +1,1 @@
-web: ls -l
+web: mvn clean package -e wildfly:deploy
