@@ -22,6 +22,7 @@
   <spring-framework.version>5.2.2.RELEASE</spring-framework.version>
   <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
   <hibernate.version>5.2.12.Final</hibernate.version>
+  <tomcat.version>8.0.30</tomcat.version>
 </properties>
 <dependencies>
   <dependency>
@@ -40,11 +41,11 @@
     <version>3.1.0</version>
     <scope>provided</scope>
   </dependency>
-  <dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>servlet-api</artifactId>
-    <version>2.5</version>
-  </dependency>
+<!--  <dependency>-->
+<!--    <groupId>javax.servlet</groupId>-->
+<!--    <artifactId>servlet-api</artifactId>-->
+<!--    <version>2.5</version>-->
+<!--  </dependency>-->
 
   <dependency>
     <groupId>org.springframework.boot</groupId>
